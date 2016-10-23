@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Comments</title>
+    </head>
+    <body>
+        <h1>Comments</h1><hr>
+        {% for comment in comments %}
+            <p>{{comment.comment}}</p>
+        {% endfor %}
+        <form class="" action="/newcomment" method="post">
+            <input type="hidden" name="id" value="{{request.POST.id}}">
+            <label for="comment">Comment</label><br>
+            <textarea name="comment" rows="4" cols="40"></textarea><br>
+            <input type="submit" name="submit" value="Submit">
+            {% csrf_token %}
+        </form>
+        <form class="" action="/" method="post">
+            <input type="submit" name="submit" value="Back to Courses">
+            {% csrf_token %}
+        </form>
+    </body>
+</html>

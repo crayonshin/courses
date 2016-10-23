@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load staticfiles %}
+        <link rel="stylesheet" href="{% static 'new_courses/css/style.css' %}" type="text/css">
+        <meta charset="utf-8">
+        <title>Courses</title>
+    </head>
+    <body>
+        <h1>Add a new course</h1>
+        <form class="" action="/addcourse" method="post">
+            <label for="name">Name: </label>
+            <input type="text" name="name" value=""><br><br>
+            <label for="description">Description: </label><br>
+            <textarea name="description" rows="8" cols="40"></textarea><br>
+            <input type="submit" name="submit" value="Add">
+            {% csrf_token %}
+        </form><br>
+        <h1>Courses</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Date Added</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for course in courses %}
+                    <tr>
+                        <td>{{course.name}}</td>
+                        <td>{{course.description.description}}</td>
+                        <td>{{course.created_at}}</td>
+                        <td>
+                            <form class="" action="/confirm" method="post">
+                                <input type="hidden" name="id" value="{{course.id}}">
+                                <input type="submit" name="submit" value="Remove Course">
+                                {% csrf_token %}
+                            </form>
+                            <form class="" action="/comments" method="post">
+                                <input type="hidden" name="id" value="{{course.id}}">
+                                <input type="submit" name="submit" value="View/Add Comments">
+                                {% csrf_token %}
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+    </body>
+</html>
